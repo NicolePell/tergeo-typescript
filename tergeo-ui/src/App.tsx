@@ -1,12 +1,14 @@
 import React from 'react';
 
-import './App.css';
-import ChoreList from './ChoreList/ChoreList';
+import SideNav from './components/SideNav';
+import AppHeader from './components/AppHeader';
+import ChoreList from './components/ChoreList/ChoreList';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">Tergeo</header>
+      <AppHeader />
+      <SideNav />
       <ChoreList />
     </div>
   );

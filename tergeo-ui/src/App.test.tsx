@@ -2,19 +2,19 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import App from './App';
-import ChoreList from './ChoreList/ChoreList';
+import SideNav from './components/SideNav';
+import AppHeader from './components/AppHeader';
 
 describe('<App />', () => {
-  it('renders without crashing', () => {
+  it('renders <AppHeader />', () => {
     const component = shallow(<App />);
 
-    expect(component).toHaveLength(1);
-    expect(component.text()).toBe('Tergeo');
+    expect(component.find(AppHeader)).toHaveLength(1);
   });
 
-  it('renders <ChoreList />', () => {
+  it('renders the <SideNav />', () => {
     const component = shallow(<App />);
 
-    expect(component.find(ChoreList)).toHaveLength(1);
+    expect(component.find(SideNav)).toHaveLength(1);
   });
 });
