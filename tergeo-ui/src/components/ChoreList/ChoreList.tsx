@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Body, BodyLarge, H4 } from '../../Typography';
+import { Body, BodyLarge, BodySmall, H4 } from '../../Typography';
 
 const Container = styled.div`
   background-color: #fafafa;
@@ -49,6 +49,17 @@ const PointsValue = styled(Body)`
   font-weight: bold;
 `;
 
+const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 225px;
+  justify-content: space-between;
+`;
+
+const FilterLabel = styled(Body)`
+  color: #a9a9a9;
+`;
+
 const ChoreList = () => {
   return (
     <Container id="chore-list">
@@ -61,7 +72,12 @@ const ChoreList = () => {
           </Points>
         </PointsContainer>
       </HeaderContainer>
-      <div>Filter: All Completed In Progress</div>
+      <FilterContainer>
+        <FilterLabel>Filter: </FilterLabel>
+        <FilterLabel>All</FilterLabel>
+        <FilterLabel>Completed</FilterLabel>
+        <FilterLabel>In Progress</FilterLabel>
+      </FilterContainer>
       <div>
         <ul>
           <li>Call Dumbledore</li>
