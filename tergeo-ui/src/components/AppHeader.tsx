@@ -12,9 +12,10 @@ const Container = styled.div`
 `;
 
 const Menu = styled.div`
-  width: 900px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin: 0 15px;
 `;
 
 const Logo = styled(H4)`
