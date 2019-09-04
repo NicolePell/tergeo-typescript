@@ -1,16 +1,30 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import SideNav from './components/SideNav';
 import AppHeader from './components/AppHeader';
 import ChoreList from './components/ChoreList/ChoreList';
 
+const Container = styled.div`
+  height: 100%;
+  background-color: orange;
+`;
+
+const MainContent = styled.div`
+  background-color: deepskyblue;
+  display: flex;
+  height: 100%;
+`;
+
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <Container id="app">
       <AppHeader />
-      <SideNav />
-      <ChoreList />
-    </div>
+      <MainContent id="main-content">
+        <SideNav />
+        <ChoreList />
+      </MainContent>
+    </Container>
   );
 };
 

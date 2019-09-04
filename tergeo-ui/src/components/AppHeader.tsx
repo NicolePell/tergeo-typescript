@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { H4, H5 } from '../Typography';
 
-const MenuContainer = styled.div`
+const Container = styled.div`
   background-color: #4d4d4d;
   color: #fff;
   padding: 12px 0;
@@ -33,7 +33,7 @@ const NavItem = styled(H5)`
 
 const AppHeader = () => {
   return (
-    <MenuContainer>
+    <Container id="app-header">
       <Menu>
         <Logo>Tergeo</Logo>
         <Nav>
@@ -41,7 +41,7 @@ const AppHeader = () => {
           <NavItem>Sign Up</NavItem>
         </Nav>
       </Menu>
-    </MenuContainer>
+    </Container>
   );
 };
 
