@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BodyLarge, H3 } from '../../Typography';
+import { Body, BodyLarge, H4 } from '../../Typography';
 
 const Container = styled.div`
   background-color: #fafafa;
   flex: 1;
   flex-direction: row;
+  padding-left: 25px;
 `;
 
 const HeaderContainer = styled.div`
@@ -13,7 +14,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Header = styled(H3)`
+const Header = styled(H4)`
   color: #5b939c;
 `;
 
@@ -26,20 +27,26 @@ const PointsContainer = styled.div`
   margin-right: 10px;
 `;
 
-const PointsLabel = styled.div`
+const PointsLabel = styled(BodyLarge)`
   margin-right: 15px;
+  color: #7f7f7f;
+  font-weight: bold;
 `;
 
 const Points = styled.div`
-  background-color: #84CFDF;
+  background-color: #84cfdf;
   display: flex;
   border-radius: 6px;
   padding: 2px 6px;
   margin: 0;
 `;
 
-const PointsValue = styled(BodyLarge)`
+const PointsValue = styled(Body)`
+  color: #505657;
   margin: 0;
+  padding: 0 2px;
+  line-height: 25px;
+  font-weight: bold;
 `;
 
 const ChoreList = () => {
