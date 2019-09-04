@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Body, H4 } from '../Typography';
 
 const Container = styled.div`
-  background-color: forestgreen;
+  background-color: #FFFFFF;
   flex: 0 0 11.5vw;
   padding: 0 1.5vw;
 `;

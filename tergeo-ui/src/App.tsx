@@ -11,7 +11,6 @@ const Container = styled.div`
 `;
 
 const MainContent = styled.div`
-  background-color: deepskyblue;
   display: flex;
   height: 100%;
 `;
