@@ -1,8 +1,5 @@
-type Action = {
-  type: string;
-  payload: {};
-};
+import { Action, TaskActions } from './actions';
 
-export default (state = {}, action: Action) => {
+export default (state = {}, action: Action<TaskActions>) => {
   return state;
 };
