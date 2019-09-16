@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import TaskList, { AddButton } from './TaskList';
-import { NewTaskModal } from './NewTaskModal';
+import NewTaskModal from './NewTaskModal';
 
 describe('<TaskList />', () => {
   it(`opens "NewTaskModal" when "AddTaskButton" is clicked`, () => {
