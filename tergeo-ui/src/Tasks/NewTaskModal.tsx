@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
-import { Task } from '../../types';
+import { Task } from '../types';
 import { saveTask } from './actions';
 
 export const NewForm = styled.form``;
@@ -38,7 +38,7 @@ export class NewTaskModal extends React.PureComponent<Props> {
         <NewForm onSubmit={this.saveTask}>
           <InputField placeholder="Task name" name="description" />
           <ConfirmButton type="submit">Confirm</ConfirmButton>
-          <a href="">Cancel</a>
+          <a href="/">Cancel</a>
         </NewForm>
       </div>
     );

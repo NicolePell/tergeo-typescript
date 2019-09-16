@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Body, BodyLarge, H4 } from '../Typography';
-import TaskList from './Tasks/TaskList';
+import TaskList from '../Tasks/TaskList';
 
 const Container = styled.div`
   background-color: #fafafa;
