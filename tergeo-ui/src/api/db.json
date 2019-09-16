@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    { "id": 1, "description": "daily routine: bathroom", "completed": false },
+    { "id": 2, "description": "daily routine: kitchen", "completed": false },
+    { "id": 3, "description": "daily routine: living room", "completed": false },
+    { "id": 4, "description": "daily routine: bedroom", "completed": false },
+    { "id": 5, "description": "daily routine: hallway", "completed": false },
+    { "id": 6, "description": "organise spice drawer", "completed": false },
+    { "id": 7, "description": "wash and put away clothes", "completed": false }
+  ]
+}

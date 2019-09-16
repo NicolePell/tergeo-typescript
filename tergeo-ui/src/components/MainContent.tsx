@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Body, BodyLarge, BodySmall, H4 } from '../../Typography';
+
+import { Body, BodyLarge, H4 } from '../Typography';
+import TaskList from './Tasks/TaskList';
 
 const Container = styled.div`
   background-color: #fafafa;
@@ -60,9 +62,9 @@ const FilterLabel = styled(Body)`
   color: #a9a9a9;
 `;
 
-const ChoreList = () => {
+const MainContent = () => {
   return (
-    <Container id="chore-list">
+    <Container id="main-content">
       <HeaderContainer>
         <Header>My Tasks</Header>
         <PointsContainer>
@@ -78,14 +80,9 @@ const ChoreList = () => {
         <FilterLabel>Completed</FilterLabel>
         <FilterLabel>In Progress</FilterLabel>
       </FilterContainer>
-      <div>
-        <ul>
-          <li>Call Dumbledore</li>
-          <li>Decide the outfit for the Yule Ball</li>
-        </ul>
-      </div>
+      <TaskList />
     </Container>
   );
 };
 
-export default ChoreList;
+export default MainContent;

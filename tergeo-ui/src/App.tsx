@@ -3,14 +3,14 @@ import styled from 'styled-components';
 
 import SideNav from './components/SideNav';
 import AppHeader from './components/AppHeader';
-import ChoreList from './components/ChoreList/ChoreList';
+import MainContent from './components/MainContent';
 
 const Container = styled.div`
   height: 100%;
   background-color: orange;
 `;
 
-const MainContent = styled.div`
+const MainContentContainer = styled.div`
   display: flex;
   height: 100%;
 `;
@@ -19,10 +19,10 @@ const App: React.FC = () => {
   return (
     <Container id="app">
       <AppHeader />
-      <MainContent id="main-content">
+      <MainContentContainer id="main-content-container">
         <SideNav />
-        <ChoreList />
-      </MainContent>
+        <MainContent />
+      </MainContentContainer>
     </Container>
   );
 };
