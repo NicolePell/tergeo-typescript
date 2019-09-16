@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import TaskList, { AddTaskButton } from './TaskList';
+import TaskList, { AddButton } from './TaskList';
 import { NewTaskModal } from './NewTaskModal';
 
 describe('<TaskList />', () => {
@@ -9,7 +9,7 @@ describe('<TaskList />', () => {
     const component = shallow(<TaskList />);
 
     expect(component.find(NewTaskModal).exists()).toBe(false);
-    component.find(AddTaskButton).simulate('click');
+    component.find(AddButton).simulate('click');
     expect(component.find(NewTaskModal).exists()).toBe(true);
   });
 });

@@ -9,6 +9,7 @@ const Container = styled.div`
   flex: 1;
   flex-direction: row;
   padding-left: 25px;
+  padding-right: 25px;
 `;
 
 const HeaderContainer = styled.div`
@@ -25,14 +26,12 @@ const PointsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
-  margin-right: 10px;
 `;
 
 const PointsLabel = styled(BodyLarge)`
-  margin-right: 15px;
   color: #7f7f7f;
   font-weight: bold;
+  margin-right: 15px;
 `;
 
 const Points = styled.div`

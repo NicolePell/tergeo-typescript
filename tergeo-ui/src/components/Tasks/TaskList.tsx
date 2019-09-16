@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { NewTaskModal } from './NewTaskModal';
+
+import NewTaskModal from './NewTaskModal';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const List = styled.ul`
 
 const Item = styled.li``;
 
-export const AddTaskButton = styled.button`
+export const AddButton = styled.button`
   background: #b9215f;
   background: linear-gradient(90deg, rgba(227, 161, 188, 1) 0%, rgba(185, 33, 95, 1) 35%, rgba(93, 11, 45, 1) 100%);
   color: white;
@@ -34,7 +35,7 @@ export type State = {
   showModal: boolean;
 };
 
-export class TaskList extends React.PureComponent<Props, State> {
+class TaskList extends React.PureComponent<Props, State> {
   state = {
     showModal: false,
   };
@@ -54,9 +55,9 @@ export class TaskList extends React.PureComponent<Props, State> {
           <Item>Call Dumbledore</Item>
           <Item>Decide the outfit for the Yule Ball</Item>
         </List>
-        <AddTaskButton onClick={this.showModal}>
+        <AddButton onClick={this.showModal}>
           <FontAwesomeIcon icon={faPlus} />
-        </AddTaskButton>
+        </AddButton>
       </Container>
     );
   }
