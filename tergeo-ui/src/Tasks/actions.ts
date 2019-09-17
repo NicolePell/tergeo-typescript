@@ -1,9 +1,9 @@
 import { Task } from '../types';
 
 export enum TaskActions {
-  submitTaskStart = 'SUBMIT_TASK_START',
-  submitTaskSuccess = 'SUBMIT_TASK_SUCCESS',
-  submitTaskError = 'SUBMIT_TASK_ERROR',
+  CREATE_TASK_START = 'CREATE_TASK_START',
+  CREATE_TASK_SUCCESS = 'CREATE_TASK_SUCCESS',
+  CREATE_TASK_ERROR = 'CREATE_TASK_ERROR',
 }
 
 export type Action<Type, Payload = any> = {
@@ -11,6 +11,7 @@ export type Action<Type, Payload = any> = {
   payload?: Payload;
 };
 
-export const saveTask = (task: Task) => {
+export const createTaskAction = (task: Task): Action<TaskActions> => {
   console.log('saveTask action', task);
+  return { type: TaskActions.CREATE_TASK_START };
 };

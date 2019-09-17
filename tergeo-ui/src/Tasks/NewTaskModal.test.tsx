@@ -9,12 +9,16 @@ import {
 } from './NewTaskModal';
 
 jest.mock('./actions');
-import { saveTask } from './actions';
+import { createTaskAction } from './actions';
 
 describe('<NewTaskModal />', () => {
+  const props = {
+    saveTask: jest.fn(),
+  };
+
   it('prevent default form submission', () => {
     const preventDefault = jest.fn();
-    const component = shallow(<NewTaskModal />);
+    const component = shallow(<NewTaskModal {...props} />);
 
     component.find(NewForm).simulate('submit', {
       preventDefault,
@@ -30,12 +34,8 @@ describe('<NewTaskModal />', () => {
   it(`calls "saveTask" with task details when "AddTaskButton" is clicked`, () => {
     const preventDefault = jest.fn();
     const description = 'Call Dumbledore';
-    const props = {
-      saveTask: jest.fn(),
-    };
 
     const component = shallow(<NewTaskModal {...props} />);
-
     component.find(InputField).simulate('change', { value: description });
     component.find(NewForm).simulate('submit', {
       preventDefault,
@@ -45,7 +45,7 @@ describe('<NewTaskModal />', () => {
       },
     });
 
-    expect(saveTask).toBeCalledWith({
+    expect(props.saveTask).toBeCalledWith({
       description: description,
       completed: false,
     });
@@ -62,7 +62,7 @@ describe('<NewTaskModal />', () => {
       mapDispatchToProps(dispatch).saveTask(task);
 
       expect(dispatch).toBeCalled();
-      expect(saveTask).toBeCalledWith(task);
+      expect(createTaskAction).toBeCalledWith(task);
     });
   });
 });
