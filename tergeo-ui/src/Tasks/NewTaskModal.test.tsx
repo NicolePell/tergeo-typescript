@@ -9,11 +9,11 @@ import {
 } from './NewTaskModal';
 
 jest.mock('./actions');
-import { createTaskAction } from './actions';
+import { createTask } from './actions';
 
 describe('<NewTaskModal />', () => {
   const props = {
-    saveTask: jest.fn(),
+    createTask: jest.fn(),
   };
 
   it('prevent default form submission', () => {
@@ -31,7 +31,7 @@ describe('<NewTaskModal />', () => {
     expect(preventDefault).toBeCalled();
   });
 
-  it(`calls "saveTask" with task details when "AddTaskButton" is clicked`, () => {
+  it(`calls "createTask" with task details when "AddTaskButton" is clicked`, () => {
     const preventDefault = jest.fn();
     const description = 'Call Dumbledore';
 
@@ -45,24 +45,24 @@ describe('<NewTaskModal />', () => {
       },
     });
 
-    expect(props.saveTask).toBeCalledWith({
+    expect(props.createTask).toBeCalledWith({
       description: description,
       completed: false,
     });
   });
 
   describe('mapDispatchToProps', () => {
-    it('creates saveTask action', () => {
+    it('creates createTask action', () => {
       const dispatch = jest.fn();
       const task = {
         description: 'Call Dumbledore',
         completed: false,
       };
 
-      mapDispatchToProps(dispatch).saveTask(task);
+      mapDispatchToProps(dispatch).createTask(task);
 
       expect(dispatch).toBeCalled();
-      expect(createTaskAction).toBeCalledWith(task);
+      expect(createTask).toBeCalledWith(task);
     });
   });
 });

@@ -1,17 +1,24 @@
 import { Task } from '../types';
+import { createTask } from './actions';
 
-export enum TaskActions {
-  CREATE_TASK_START = 'CREATE_TASK_START',
-  CREATE_TASK_SUCCESS = 'CREATE_TASK_SUCCESS',
-  CREATE_TASK_ERROR = 'CREATE_TASK_ERROR',
-}
+jest.mock('../api/tasksApi');
+import tasksApi from '../api/tasksApi';
 
-export type Action<Type, Payload = any> = {
-  type: Type;
-  payload?: Payload;
-};
+describe('createTask', () => {
+  it('dispatches a create event, an api request, and a success event', async () => {
+    const mockDispatch = jest.fn();
+    const task: Task = {
+      description: 'Call Dumbledore',
+      completed: false,
+    };
+    (tasksApi.createTask as jest.Mock).mockResolvedValueOnce({});
 
-export const createTaskAction = (task: Task): Action<TaskActions> => {
-  console.log('saveTask action', task);
-  return { type: TaskActions.CREATE_TASK_START };
-};
+    await createTask(task)(mockDispatch);
+
+    expect(mockDispatch.mock.calls).toEqual([
+      [{ type: 'CREATE_TASK_START' }],
+      [{ type: 'CREATE_TASK_SUCCESS' }],
+    ]);
+    expect(tasksApi.createTask).toBeCalledWith(task);
+  });
+});

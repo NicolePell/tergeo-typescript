@@ -4,7 +4,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
 import { Task } from '../types';
-import { createTaskAction } from './actions';
+import { createTask } from './actions';
 
 export const NewForm = styled.form``;
 
@@ -16,13 +16,13 @@ export const ConfirmButton = styled.button`
 `;
 
 export type DispatchProps = {
-  saveTask: (task: Task) => void;
+  createTask: (task: Task) => void;
 };
 
 export class NewTaskModal extends React.PureComponent<DispatchProps> {
   saveTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.saveTask({
+    this.props.createTask({
       // @ts-ignore
       description: event.target.description.value,
       completed: false,
@@ -46,7 +46,7 @@ export class NewTaskModal extends React.PureComponent<DispatchProps> {
 export const mapDispatchToProps = (
   dispatch: ThunkDispatch<{}, {}, any>
 ): DispatchProps => ({
-  saveTask: task => dispatch(createTaskAction(task)),
+  createTask: task => dispatch(createTask(task)),
 });
 
 export default connect(
