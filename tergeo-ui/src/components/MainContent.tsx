@@ -5,11 +5,9 @@ import { Body, BodyLarge, H4 } from '../Typography';
 import TaskList from '../Tasks/TaskList';
 
 const Container = styled.div`
-  background-color: #fafafa;
+  display: flex;
   flex: 1;
-  flex-direction: row;
-  padding-left: 25px;
-  padding-right: 25px;
+  flex-direction: column;
 `;
 
 const HeaderContainer = styled.div`
@@ -53,8 +51,8 @@ const PointsValue = styled(Body)`
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 225px;
   justify-content: space-between;
+  width: 225px;
 `;
 
 const FilterLabel = styled(Body)`
@@ -64,7 +62,7 @@ const FilterLabel = styled(Body)`
 const MainContent = () => {
   return (
     <Container id="main-content">
-      <HeaderContainer>
+      <HeaderContainer id="header-container">
         <Header>My Tasks</Header>
         <PointsContainer>
           <PointsLabel>Personal points:</PointsLabel>
@@ -73,7 +71,7 @@ const MainContent = () => {
           </Points>
         </PointsContainer>
       </HeaderContainer>
-      <FilterContainer>
+      <FilterContainer id="filter-container">
         <FilterLabel>Filter: </FilterLabel>
         <FilterLabel>All</FilterLabel>
         <FilterLabel>Completed</FilterLabel>
