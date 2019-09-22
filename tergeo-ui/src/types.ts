@@ -4,5 +4,7 @@ export interface Task {
 }
 
 export interface TaskState {
-  tasks: Task[]
+  tasks: Task[];
+  createTaskError: boolean;
+  createTaskComplete: boolean;
 }

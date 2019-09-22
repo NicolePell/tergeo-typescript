@@ -1,8 +1,10 @@
 import { Action, TaskActions } from './actions';
 import { TaskState } from '../types';
 
-const initialState: TaskState = {
+export const initialState: TaskState = {
   tasks: [],
+  createTaskError: false,
+  createTaskComplete: false,
 };
 
 export default (
@@ -10,10 +12,10 @@ export default (
   action: Action<TaskActions>
 ): TaskState => {
   switch (action.type) {
-    case TaskActions.CREATE_TASK_START:
-      return {
-        tasks: [...state.tasks],
-      };
+    case TaskActions.CREATE_TASK_SUCCESS:
+      return { ...state, createTaskComplete: true };
+    case TaskActions.CREATE_TASK_ERROR:
+      return { ...state, createTaskError: true };
     default:
       return state;
   }
