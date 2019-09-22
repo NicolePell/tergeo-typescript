@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 import { Task } from '../types';
 import config from '../config';
@@ -12,12 +12,23 @@ export enum TaskResponseResult {
 
 export default {
   createTask: async (task: Task) => {
-    await fetch(`${tasksUrl}`, {
-      method: 'POST',
-      body: JSON.stringify(task),
-      headers: { 'content-type': 'application/json' },
-    });
+    try {
+      const response: Response = await fetch(`${tasksUrl}`, {
+        method: 'POST',
+        body: JSON.stringify(task),
+        headers: { 'content-type': 'application/json' },
+      });
 
-    return { result: TaskResponseResult.success };
+      if (response.status !== 201) {
+        return {
+          result: TaskResponseResult.error,
+          error: { message: response.statusText, code: response.status },
+        };
+      }
+
+      return { result: TaskResponseResult.success, task };
+    } catch (error) {
+      return { result: TaskResponseResult.error };
+    }
   },
 };
