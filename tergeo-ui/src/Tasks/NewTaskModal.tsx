@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
-import { Task } from '../types';
+import { Task, TaskState } from '../types';
 import { createTask } from './actions';
 
 export const NewForm = styled.form``;
@@ -15,11 +15,22 @@ export const ConfirmButton = styled.button`
   color: white;
 `;
 
+export const ErrorMessage = styled.h5`
+  color: red;
+`;
+
+export type StateProps = {
+  createTaskComplete: boolean;
+  createTaskError: boolean;
+};
+
 export type DispatchProps = {
   createTask: (task: Task) => void;
 };
 
-export class NewTaskModal extends React.PureComponent<DispatchProps> {
+export type Props = StateProps & DispatchProps;
+
+export class NewTaskModal extends React.PureComponent<Props> {
   saveTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.props.createTask({
@@ -38,10 +49,18 @@ export class NewTaskModal extends React.PureComponent<DispatchProps> {
           <ConfirmButton type="submit">Confirm</ConfirmButton>
           <a href="/">Cancel</a>
         </NewForm>
+        {this.props.createTaskError && (
+          <ErrorMessage>Sorry, we were unable to create your task</ErrorMessage>
+        )}
       </div>
     );
   }
 }
+
+export const mapStateToProps = (state: TaskState): StateProps => ({
+  createTaskComplete: state.createTaskComplete,
+  createTaskError: state.createTaskError,
+});
 
 export const mapDispatchToProps = (
   dispatch: ThunkDispatch<{}, {}, any>
@@ -50,6 +69,6 @@ export const mapDispatchToProps = (
 });
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(NewTaskModal);

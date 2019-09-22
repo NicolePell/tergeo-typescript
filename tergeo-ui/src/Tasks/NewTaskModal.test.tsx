@@ -6,19 +6,25 @@ import {
   InputField,
   NewForm,
   mapDispatchToProps,
+  mapStateToProps,
+  Props,
+  ErrorMessage,
 } from './NewTaskModal';
 
 jest.mock('./actions');
 import { createTask } from './actions';
+import { TaskState } from '../types';
 
 describe('<NewTaskModal />', () => {
-  const props = {
+  const defaultProps: Props = {
+    createTaskComplete: false,
+    createTaskError: false,
     createTask: jest.fn(),
   };
 
   it('prevent default form submission', () => {
     const preventDefault = jest.fn();
-    const component = shallow(<NewTaskModal {...props} />);
+    const component = shallow(<NewTaskModal {...defaultProps} />);
 
     component.find(NewForm).simulate('submit', {
       preventDefault,
@@ -35,7 +41,7 @@ describe('<NewTaskModal />', () => {
     const preventDefault = jest.fn();
     const description = 'Call Dumbledore';
 
-    const component = shallow(<NewTaskModal {...props} />);
+    const component = shallow(<NewTaskModal {...defaultProps} />);
     component.find(InputField).simulate('change', { value: description });
     component.find(NewForm).simulate('submit', {
       preventDefault,
@@ -45,9 +51,46 @@ describe('<NewTaskModal />', () => {
       },
     });
 
-    expect(props.createTask).toBeCalledWith({
+    expect(defaultProps.createTask).toBeCalledWith({
       description: description,
       completed: false,
+    });
+  });
+
+  it('hides errorMessage if createTaskError is false', () => {
+    const createTaskError = false;
+
+    const component = shallow(
+      <NewTaskModal {...defaultProps} createTaskError={createTaskError} />
+    );
+
+    expect(component.find(ErrorMessage).exists()).toBe(false);
+  });
+
+  it('shows error if createTaskError is true', () => {
+    const createTaskError = true;
+
+    const component = shallow(
+      <NewTaskModal {...defaultProps} createTaskError={createTaskError} />
+    );
+
+    expect(component.find(ErrorMessage).exists()).toBe(true);
+  });
+
+  describe('mapStateToProps', () => {
+    it('pulls data from the redux state', () => {
+      const initialState: TaskState = {
+        tasks: [],
+        createTaskError: false,
+        createTaskComplete: false,
+      };
+
+      const props = mapStateToProps(initialState);
+
+      expect(props).toEqual({
+        createTaskError: initialState.createTaskError,
+        createTaskComplete: initialState.createTaskComplete,
+      });
     });
   });
 
