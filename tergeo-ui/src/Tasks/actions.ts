@@ -1,6 +1,6 @@
 import { Task } from '../types';
 import { Dispatch } from 'redux';
-import tasksApi from '../api/tasksApi';
+import tasksApi, { TaskResponseResult } from '../api/tasksApi';
 
 export enum TaskActions {
   CREATE_TASK_START = 'CREATE_TASK_START',
@@ -17,10 +17,12 @@ export const createTask = (task: Task) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   dispatch({ type: TaskActions.CREATE_TASK_START });
-  try {
-    await tasksApi.createTask(task);
+
+  const response = await tasksApi.createTask(task);
+
+  if (response.result === TaskResponseResult.success) {
     dispatch({ type: TaskActions.CREATE_TASK_SUCCESS });
-  } catch (error) {
-    console.log({ error });
+  } else {
+    dispatch({ type: TaskActions.CREATE_TASK_ERROR });
   }
 };
