@@ -6,12 +6,13 @@ import AppHeader from './components/AppHeader';
 import MainContent from './components/MainContent';
 
 const Container = styled.div`
-  height: 100vh;
+  height: 100%;
 `;
 
 const MainContentContainer = styled.div`
   display: flex;
   background-color: #fafafa;
+  height: 100%;
 `;
 
 const App: React.FC = () => {

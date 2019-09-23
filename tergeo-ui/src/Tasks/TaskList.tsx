@@ -29,7 +29,7 @@ export const AddButton = styled.button`
   font-size: 1em;
   height: 3em;
   width: 3em;
-  box-shadow: 2px 2px 2px 0px rgba(20, 20, 20, 0.1);
+  box-shadow: 2px 2px 2px 0 rgba(20, 20, 20, 0.1);
 `;
 
 export type Props = {};

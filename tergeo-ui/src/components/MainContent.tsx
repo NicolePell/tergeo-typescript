@@ -8,6 +8,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  margin: 20px;
 `;
 
 const HeaderContainer = styled.div`
