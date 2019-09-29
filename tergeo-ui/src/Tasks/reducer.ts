@@ -1,7 +1,7 @@
 import { Action, TaskActions } from './actions';
-import { TaskState } from '../types';
+import { State } from '../types';
 
-export const initialState: TaskState = {
+export const initialState: State = {
   tasks: [],
   createTaskError: false,
   createTaskComplete: false,
@@ -10,7 +10,7 @@ export const initialState: TaskState = {
 export default (
   state = initialState,
   action: Action<TaskActions>
-): TaskState => {
+): State => {
   switch (action.type) {
     case TaskActions.CREATE_TASK_SUCCESS:
       return { ...state, createTaskComplete: true };

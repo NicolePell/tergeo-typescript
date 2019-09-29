@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
-import { Task, TaskState } from '../types';
+import { Task, State } from '../types';
 import { createTask } from './actions';
 
 export const NewForm = styled.form``;
@@ -57,7 +57,7 @@ export class NewTaskModal extends React.PureComponent<Props> {
   }
 }
 
-export const mapStateToProps = (state: TaskState): StateProps => ({
+export const mapStateToProps = (state: State): StateProps => ({
   createTaskComplete: state.createTaskComplete,
   createTaskError: state.createTaskError,
 });

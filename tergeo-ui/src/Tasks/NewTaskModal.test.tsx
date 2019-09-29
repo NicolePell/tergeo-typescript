@@ -13,7 +13,7 @@ import {
 
 jest.mock('./actions');
 import { createTask } from './actions';
-import { TaskState } from '../types';
+import { State } from '../types';
 
 describe('<NewTaskModal />', () => {
   const defaultProps: Props = {
@@ -79,7 +79,7 @@ describe('<NewTaskModal />', () => {
 
   describe('mapStateToProps', () => {
     it('pulls data from the redux state', () => {
-      const initialState: TaskState = {
+      const initialState: State = {
         tasks: [],
         createTaskError: false,
         createTaskComplete: false,

@@ -3,7 +3,7 @@ export interface Task {
   completed: boolean;
 }
 
-export interface TaskState {
+export interface State {
   tasks: Task[];
   createTaskError: boolean;
   createTaskComplete: boolean;
