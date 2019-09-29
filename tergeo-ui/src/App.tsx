@@ -7,12 +7,14 @@ import MainContent from './components/MainContent';
 
 const Container = styled.div`
   height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MainContentContainer = styled.div`
   display: flex;
+  flex-grow: 1;
   background-color: #fafafa;
-  height: 100%;
 `;
 
 const App: React.FC = () => {

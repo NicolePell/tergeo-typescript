@@ -6,6 +6,7 @@ import { H4, H5 } from '../Typography';
 const Container = styled.div`
   background-color: #4d4d4d;
   color: #fff;
+  min-height: 5vh;
   padding: 12px 0;
   display: flex;
   justify-content: center;
