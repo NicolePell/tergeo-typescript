@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { State } from '../types';
-import { mapStateToProps, TaskList } from './TaskList';
 import Item from './Item';
+import { mapDispatchToProps, mapStateToProps, TaskList } from './TaskList';
 
 describe('<TaskList />', () => {
   it(`renders a message to create tasks if none exist yet`, () => {
@@ -51,6 +51,16 @@ describe('<TaskList />', () => {
       const props = mapStateToProps(initialState);
 
       expect(props).toEqual({ tasks });
+    });
+  });
+
+  describe('mapDispatchToProps', () => {
+    it('creates fetchTasks action', () => {
+      const dispatch = jest.fn();
+
+      mapDispatchToProps(dispatch).fetchTasks();
+
+      expect(dispatch).toBeCalled();
     });
   });
 });

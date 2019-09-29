@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { State, Task } from '../types';
 import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import Item from './Item';
+import { fetchTasks } from './actions';
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +15,10 @@ const Container = styled.div`
 
 export type StateProps = {
   tasks: Task[];
+};
+
+export type DispatchProps = {
+  fetchTasks: () => void;
 };
 
 export class TaskList extends React.PureComponent<StateProps> {
@@ -34,6 +40,12 @@ export class TaskList extends React.PureComponent<StateProps> {
 
 export const mapStateToProps = (state: State): StateProps => ({
   tasks: state.tasks,
+});
+
+export const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, any>
+): DispatchProps => ({
+  fetchTasks: () => dispatch(fetchTasks()),
 });
 
 export default connect(mapStateToProps)(TaskList);
