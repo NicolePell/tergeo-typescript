@@ -1,4 +1,4 @@
-import fetch, { Response } from 'node-fetch';
+import fetch from 'node-fetch';
 
 import { Task } from '../types';
 import config from '../config';
@@ -10,25 +10,51 @@ export enum TaskResponseResult {
   error = 'error',
 }
 
-export default {
-  createTask: async (task: Task) => {
-    try {
-      const response: Response = await fetch(`${tasksUrl}`, {
-        method: 'POST',
-        body: JSON.stringify(task),
-        headers: { 'content-type': 'application/json' },
-      });
+export type ErrorResult = {
+  message: string;
+  code: number;
+};
 
-      if (response.status !== 201) {
-        return {
-          result: TaskResponseResult.error,
-          error: { message: response.statusText, code: response.status },
-        };
-      }
+export type TaskResponse = {
+  result: TaskResponseResult;
+  tasks?: Task[];
+  task?: Task;
+  error?: ErrorResult;
+};
 
-      return { result: TaskResponseResult.success, task };
-    } catch (error) {
-      return { result: TaskResponseResult.error };
+export const createTask = async (task: Task): Promise<TaskResponse> => {
+  try {
+    const response = await fetch(`${tasksUrl}`, {
+      method: 'POST',
+      body: JSON.stringify(task),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    if (!response.ok) {
+      return {
+        result: TaskResponseResult.error,
+      };
     }
-  },
+
+    return {
+      result: TaskResponseResult.success,
+      task: await response.json(),
+    };
+  } catch (error) {
+    return { result: TaskResponseResult.error };
+  }
+};
+
+export const fetchAllTasks = async (): Promise<TaskResponse> => {
+  try {
+    const response = await fetch(`${tasksUrl}`, { method: 'GET' });
+    const tasks = await response.json();
+
+    return {
+      result: TaskResponseResult.success,
+      tasks,
+    };
+  } catch (error) {
+    return { result: TaskResponseResult.error };
+  }
 };

@@ -1,10 +1,10 @@
+import { TaskState } from './Tasks/reducer';
+
 export interface Task {
   description: string;
   completed: boolean;
 }
 
-export interface State {
-  tasks: Task[];
-  createTaskError: boolean;
-  createTaskComplete: boolean;
+export interface ApplicationState {
+  tasks: TaskState;
 }

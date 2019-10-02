@@ -1,54 +1,59 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { State } from '../types';
 import Item from './Item';
 import { mapDispatchToProps, mapStateToProps, TaskList } from './TaskList';
+import { TaskState } from './reducer';
 
 describe('<TaskList />', () => {
-  it(`renders a message to create tasks if none exist yet`, () => {
-    const component = shallow(<TaskList tasks={[]} />);
+  const tasks = [
+    {
+      description: 'Call Dumbledore',
+      completed: false,
+    },
+    {
+      description: 'Decide outfit for the Yule Ball',
+      completed: false,
+    },
+  ];
 
-    expect(component.text()).toContain("You have no tasks! Create some now...");
+  const defaultProps = {
+    tasks,
+    fetchTasks: () => {},
+  };
+
+  it(`renders a message to create tasks if none exist yet`, () => {
+    const component = shallow(<TaskList {...defaultProps} tasks={[]} />);
+
+    expect(component.text()).toContain('You have no tasks! Create some now...');
   });
 
   it(`renders TaskItem for each task, and does not render 'no tasks' message`, () => {
-    const tasks = [
-      {
-        description: 'Call Dumbledore',
-        completed: false,
-      },
-      {
-        description: 'Decide outfit for the Yule Ball',
-        completed: false,
-      },
-    ];
-    const component = shallow(<TaskList tasks={tasks} />);
+    const component = shallow(<TaskList {...defaultProps} />);
 
     expect(component.find(Item).length).toBe(2);
-    expect(component.text()).not.toContain("You have no tasks! Create some now...");
+    expect(component.text()).not.toContain(
+      'You have no tasks! Create some now...'
+    );
+  });
+
+  it('calls fetchTasks on mount', () => {
+    const fetchTasks = jest.fn();
+
+    shallow(<TaskList {...defaultProps} fetchTasks={fetchTasks} />);
+
+    expect(fetchTasks).toBeCalled();
   });
 
   describe('mapStateToProps', () => {
     it('pulls tasks from redux state', () => {
-      const tasks = [
-        {
-          description: 'Call Dumbledore',
-          completed: false,
-        },
-        {
-          description: 'Decide outfit for the Yule Ball',
-          completed: false,
-        },
-      ];
-
-      const initialState: State = {
+      const initialState: TaskState = {
         tasks,
         createTaskError: false,
         createTaskComplete: false,
       };
 
-      const props = mapStateToProps(initialState);
+      const props = mapStateToProps({ tasks: initialState });
 
       expect(props).toEqual({ tasks });
     });

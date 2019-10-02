@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
-import { Task, State } from '../types';
-import { createTask } from './actions';
+import { Task } from '../types';
+import { createTaskAction } from './actions';
 
 export const NewForm = styled.form``;
 
@@ -57,15 +57,21 @@ export class NewTaskModal extends React.PureComponent<Props> {
   }
 }
 
-export const mapStateToProps = (state: State): StateProps => ({
-  createTaskComplete: state.createTaskComplete,
-  createTaskError: state.createTaskError,
+export const mapStateToProps = ({
+  createTaskComplete,
+  createTaskError,
+}: {
+  createTaskComplete: boolean;
+  createTaskError: boolean;
+}): StateProps => ({
+  createTaskComplete,
+  createTaskError,
 });
 
 export const mapDispatchToProps = (
   dispatch: ThunkDispatch<{}, {}, any>
 ): DispatchProps => ({
-  createTask: task => dispatch(createTask(task)),
+  createTask: task => dispatch(createTaskAction(task)),
 });
 
 export default connect(

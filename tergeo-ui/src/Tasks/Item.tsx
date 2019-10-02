@@ -1,10 +1,16 @@
 import React, { Fragment } from 'react';
 
-const Item = () => {
+const Item = ({
+  description,
+  completed,
+}: {
+  description: string;
+  completed: boolean;
+}) => {
   return (
     <Fragment>
-      <div>jdflaf</div>
-      <div>dfjalkf</div>
+      <div>{description}</div>
+      <div>Completed: {completed.toString()}</div>
     </Fragment>
   );
 };

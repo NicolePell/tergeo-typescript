@@ -1,4 +1,4 @@
-import tasksApi, { TaskResponseResult } from './tasksApi';
+import { createTask, fetchAllTasks, TaskResponseResult } from './tasksApi';
 import { Task } from '../types';
 import config from '../config';
 
@@ -10,6 +10,10 @@ const mockFetch = fetch as jest.Mock;
 const { tasksUrl } = config;
 
 describe('create', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('calls tasksAPI with expected body and returns success result if request is ok', async () => {
     const task: Task = {
       description: 'Call Dumbledore',
@@ -18,12 +22,10 @@ describe('create', () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      status: 201,
-      statusText: 'Created',
-      task,
+      json: () => Promise.resolve(task),
     });
 
-    const response = await tasksApi.createTask(task);
+    const response = await createTask(task);
 
     expect(fetch).toBeCalledTimes(1);
     expect(fetch).toBeCalledWith(`${tasksUrl}`, {
@@ -45,22 +47,11 @@ describe('create', () => {
       completed: false,
     };
 
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 400,
-      statusText: 'Bad Request',
-      task: {},
-    });
+    mockFetch.mockResolvedValueOnce({ ok: false });
 
-    const response = await tasksApi.createTask(task);
+    const response = await createTask(task);
 
-    expect(response).toEqual({
-      result: TaskResponseResult.error,
-      error: {
-        message: 'Bad Request',
-        code: 400,
-      },
-    });
+    expect(response).toEqual({ result: TaskResponseResult.error });
   });
 
   it('returns error result if request fails', async () => {
@@ -71,10 +62,37 @@ describe('create', () => {
 
     mockFetch.mockRejectedValueOnce({});
 
-    const response = await tasksApi.createTask(task);
+    const response = await createTask(task);
 
     expect(response).toEqual({
       result: TaskResponseResult.error,
+    });
+  });
+});
+
+describe('fetchAllTasks', () => {
+  it('calls tasksAPI and returns success result and list of tasks if request is ok', async () => {
+    const tasks: Task[] = [
+      {
+        description: 'Call Dumbledore',
+        completed: false,
+      },
+    ];
+
+    (mockFetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(tasks),
+    });
+
+    const response = await fetchAllTasks();
+
+    expect(fetch).toBeCalledTimes(1);
+    expect(fetch).toBeCalledWith(`${tasksUrl}`, {
+      method: 'GET',
+    });
+    expect(response).toEqual({
+      result: TaskResponseResult.success,
+      tasks,
     });
   });
 });

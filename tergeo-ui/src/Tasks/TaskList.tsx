@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { State, Task } from '../types';
+import { Task } from '../types';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import Item from './Item';
-import { fetchTasks } from './actions';
+import { fetchAllTasksAction } from './actions';
+import { TaskState } from './reducer';
 
 const Container = styled.div`
   display: flex;
@@ -21,14 +22,25 @@ export type DispatchProps = {
   fetchTasks: () => void;
 };
 
-export class TaskList extends React.PureComponent<StateProps> {
+export class TaskList extends React.PureComponent<StateProps & DispatchProps> {
+  componentDidMount() {
+    this.props.fetchTasks();
+  }
+
   render() {
     const { tasks } = this.props;
+
     return (
       <Container id="task-list-container">
-        {tasks.length ? (
-          tasks.map(task => {
-            return <Item />;
+        {tasks.length > 0 ? (
+          tasks.map((task, index) => {
+            return (
+              <Item
+                key={index}
+                description={task.description}
+                completed={task.completed}
+              />
+            );
           })
         ) : (
           <p>You have no tasks! Create some now...</p>
@@ -38,14 +50,21 @@ export class TaskList extends React.PureComponent<StateProps> {
   }
 }
 
-export const mapStateToProps = (state: State): StateProps => ({
-  tasks: state.tasks,
+export const mapStateToProps = ({
+  tasks,
+}: {
+  tasks: TaskState;
+}): StateProps => ({
+  tasks: tasks.tasks,
 });
 
 export const mapDispatchToProps = (
   dispatch: ThunkDispatch<{}, {}, any>
 ): DispatchProps => ({
-  fetchTasks: () => dispatch(fetchTasks()),
+  fetchTasks: () => dispatch(fetchAllTasksAction()),
 });
 
-export default connect(mapStateToProps)(TaskList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskList);

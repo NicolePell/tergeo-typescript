@@ -1,5 +1,6 @@
-import reducer, { initialState } from './reducer';
+import reducer, { initialState, TaskState } from './reducer';
 import { TaskActions } from './actions';
+import { Task } from '../types';
 
 describe('tasks reducer', () => {
   it('sets initial state', () => {
@@ -39,6 +40,26 @@ describe('tasks reducer', () => {
         type: TaskActions.CREATE_TASK_SUCCESS,
       });
       expect(nextState.createTaskComplete).toEqual(true);
+    });
+  });
+
+  describe('fetchAllTasks', () => {
+    it('sets fetchAllTasksComplete to true on FETCH_ALL_TASKS_SUCCESS action', () => {
+      const state: TaskState = {
+        ...initialState,
+        tasks: [],
+      };
+
+      const tasks: Task[] = [
+        { description: 'Call Dumbledore', completed: false },
+        { description: 'Buy new cauldron', completed: false },
+      ];
+
+      const nextState = reducer(state, {
+        type: TaskActions.FETCH_ALL_TASKS_SUCCESS,
+        payload: tasks,
+      });
+      expect(nextState.tasks).toEqual(tasks);
     });
   });
 });

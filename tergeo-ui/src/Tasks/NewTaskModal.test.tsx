@@ -12,8 +12,8 @@ import {
 } from './NewTaskModal';
 
 jest.mock('./actions');
-import { createTask } from './actions';
-import { State } from '../types';
+import { createTaskAction } from './actions';
+import { TaskState } from './reducer';
 
 describe('<NewTaskModal />', () => {
   const defaultProps: Props = {
@@ -79,7 +79,7 @@ describe('<NewTaskModal />', () => {
 
   describe('mapStateToProps', () => {
     it('pulls data from the redux state', () => {
-      const initialState: State = {
+      const initialState: TaskState = {
         tasks: [],
         createTaskError: false,
         createTaskComplete: false,
@@ -105,7 +105,7 @@ describe('<NewTaskModal />', () => {
       mapDispatchToProps(dispatch).createTask(task);
 
       expect(dispatch).toBeCalled();
-      expect(createTask).toBeCalledWith(task);
+      expect(createTaskAction).toBeCalledWith(task);
     });
   });
 });

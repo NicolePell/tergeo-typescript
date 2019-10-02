@@ -1,9 +1,10 @@
 import { Task } from '../types';
 import { Dispatch } from 'redux';
-import tasksApi, { TaskResponseResult } from '../api/tasksApi';
+import { createTask, fetchAllTasks, TaskResponseResult } from '../api/tasksApi';
 
 export enum TaskActions {
-  FETCH_TASKS = 'FETCH_TASKS',
+  FETCH_ALL_TASKS_START = 'FETCH_ALL_TASKS_START',
+  FETCH_ALL_TASKS_SUCCESS = 'FETCH_ALL_TASKS_SUCCESS',
   CREATE_TASK_START = 'CREATE_TASK_START',
   CREATE_TASK_SUCCESS = 'CREATE_TASK_SUCCESS',
   CREATE_TASK_ERROR = 'CREATE_TASK_ERROR',
@@ -14,12 +15,12 @@ export type Action<Type, Payload = any> = {
   payload?: Payload;
 };
 
-export const createTask = (task: Task) => async (
+export const createTaskAction = (task: Task) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   dispatch({ type: TaskActions.CREATE_TASK_START });
 
-  const response = await tasksApi.createTask(task);
+  const response = await createTask(task);
 
   if (response.result === TaskResponseResult.success) {
     dispatch({ type: TaskActions.CREATE_TASK_SUCCESS });
@@ -28,4 +29,17 @@ export const createTask = (task: Task) => async (
   }
 };
 
-export const fetchTasks = () => {};
+export const fetchAllTasksAction = () => async (
+  dispatch: Dispatch
+): Promise<void> => {
+  dispatch({ type: TaskActions.FETCH_ALL_TASKS_START });
+
+  const response = await fetchAllTasks();
+
+  if (response.result === TaskResponseResult.success) {
+    dispatch({
+      type: TaskActions.FETCH_ALL_TASKS_SUCCESS,
+      payload: response.tasks,
+    });
+  }
+};
