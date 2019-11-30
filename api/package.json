@@ -1,8 +1,11 @@
 {
   "name": "tergeo-api",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "jest --coverage"
+  },
   "dependencies": {
     "fastify": "^2.10.0",
     "fastify-cors": "^3.0.0",
