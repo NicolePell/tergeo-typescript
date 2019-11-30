@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import styled from 'styled-components';
 
-import { Task } from '../types';
+import { TaskDetails } from '../types';
 import { createTaskAction } from './actions';
 
 export const NewForm = styled.form``;
@@ -25,7 +25,7 @@ export type StateProps = {
 };
 
 export type DispatchProps = {
-  createTask: (task: Task) => void;
+  createTask: (task: TaskDetails) => void;
 };
 
 export type Props = StateProps & DispatchProps;

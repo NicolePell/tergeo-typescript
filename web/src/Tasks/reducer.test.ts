@@ -1,6 +1,6 @@
 import reducer, { initialState, TaskState } from './reducer';
 import { TaskActions } from './actions';
-import { Task } from '../types';
+import { TaskDetails } from '../types';
 
 describe('tasks reducer', () => {
   it('sets initial state', () => {
@@ -50,7 +50,7 @@ describe('tasks reducer', () => {
         tasks: [],
       };
 
-      const tasks: Task[] = [
+      const tasks: TaskDetails[] = [
         { description: 'Call Dumbledore', completed: false },
         { description: 'Buy new cauldron', completed: false },
       ];

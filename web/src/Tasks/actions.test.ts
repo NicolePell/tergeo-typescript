@@ -1,18 +1,18 @@
-import { Task } from '../types';
+import { TaskDetails } from '../types';
 import { createTaskAction, fetchAllTasksAction } from './actions';
 
 jest.mock('../api/tasksApi');
-import { createTask, fetchAllTasks, TaskResponseResult } from '../api/tasksApi';
+import { saveTask, fetchAllTasks, TaskResponseResult } from '../api/tasksApi';
 
 describe('createTask', () => {
   it('dispatches a start event, an api request, and a success event', async () => {
     const mockDispatch = jest.fn();
-    const task: Task = {
+    const task: TaskDetails = {
       description: 'Call Dumbledore',
       completed: false,
     };
 
-    (createTask as jest.Mock).mockResolvedValue({
+    (saveTask as jest.Mock).mockResolvedValue({
       result: TaskResponseResult.success,
       task,
     });
@@ -23,16 +23,16 @@ describe('createTask', () => {
       [{ type: 'CREATE_TASK_START' }],
       [{ type: 'CREATE_TASK_SUCCESS' }],
     ]);
-    expect(createTask).toBeCalledWith(task);
+    expect(saveTask).toBeCalledWith(task);
   });
 
   it('dispatches an error event if api request was not ok', async () => {
     const mockDispatch = jest.fn();
-    const task: Task = {
+    const task: TaskDetails = {
       description: 'Call Dumbledore',
       completed: false,
     };
-    (createTask as jest.Mock).mockResolvedValueOnce({
+    (saveTask as jest.Mock).mockResolvedValueOnce({
       result: TaskResponseResult.error,
     });
 
@@ -48,7 +48,7 @@ describe('createTask', () => {
 describe('fetchTasks', () => {
   it('dispatches a start event, an api request, and a complete event', async () => {
     const mockDispatch = jest.fn();
-    const tasks: Task[] = [
+    const tasks: TaskDetails[] = [
       { description: 'Call Dumbledore', completed: false },
       { description: 'Buy new cauldron', completed: false },
     ];

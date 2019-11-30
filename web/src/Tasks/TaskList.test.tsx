@@ -8,10 +8,12 @@ import { TaskState } from './reducer';
 describe('<TaskList />', () => {
   const tasks = [
     {
+      id: '1',
       description: 'Call Dumbledore',
       completed: false,
     },
     {
+      id: '2',
       description: 'Decide outfit for the Yule Ball',
       completed: false,
     },

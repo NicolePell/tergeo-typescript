@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import { Task } from '../types';
+import { Task, TaskDetails } from '../types';
 import config from '../config';
 
 const { tasksUrl } = config;
@@ -22,10 +22,10 @@ export type TaskResponse = {
   error?: ErrorResult;
 };
 
-export const createTask = async (task: Task): Promise<TaskResponse> => {
+export const saveTask = async (task: TaskDetails): Promise<TaskResponse> => {
   try {
     const response = await fetch(`${tasksUrl}`, {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(task),
       headers: { 'content-type': 'application/json' },
     });

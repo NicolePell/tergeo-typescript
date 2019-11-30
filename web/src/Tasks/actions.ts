@@ -1,6 +1,6 @@
-import { Task } from '../types';
+import { TaskDetails } from '../types';
 import { Dispatch } from 'redux';
-import { createTask, fetchAllTasks, TaskResponseResult } from '../api/tasksApi';
+import { saveTask, fetchAllTasks, TaskResponseResult } from '../api/tasksApi';
 
 export enum TaskActions {
   FETCH_ALL_TASKS_START = 'FETCH_ALL_TASKS_START',
@@ -15,12 +15,12 @@ export type Action<Type, Payload = any> = {
   payload?: Payload;
 };
 
-export const createTaskAction = (task: Task) => async (
+export const createTaskAction = (task: TaskDetails) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   dispatch({ type: TaskActions.CREATE_TASK_START });
 
-  const response = await createTask(task);
+  const response = await saveTask(task);
 
   if (response.result === TaskResponseResult.success) {
     dispatch({ type: TaskActions.CREATE_TASK_SUCCESS });

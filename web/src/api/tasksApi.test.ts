@@ -1,5 +1,5 @@
-import { createTask, fetchAllTasks, TaskResponseResult } from './tasksApi';
-import { Task } from '../types';
+import { saveTask, fetchAllTasks, TaskResponseResult } from './tasksApi';
+import { TaskDetails } from '../types';
 import config from '../config';
 
 jest.mock('node-fetch');
@@ -15,7 +15,7 @@ describe('create', () => {
   });
 
   it('calls tasksAPI with expected body and returns success result if request is ok', async () => {
-    const task: Task = {
+    const task: TaskDetails = {
       description: 'Call Dumbledore',
       completed: false,
     };
@@ -25,12 +25,12 @@ describe('create', () => {
       json: () => Promise.resolve(task),
     });
 
-    const response = await createTask(task);
+    const response = await saveTask(task);
 
     expect(fetch).toBeCalledTimes(1);
     expect(fetch).toBeCalledWith(`${tasksUrl}`, {
       body: JSON.stringify(task),
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
@@ -42,27 +42,27 @@ describe('create', () => {
   });
 
   it('returns error result if request returns a not ok response', async () => {
-    const task: Task = {
+    const task: TaskDetails = {
       description: 'Call Dumbledore',
       completed: false,
     };
 
     mockFetch.mockResolvedValueOnce({ ok: false });
 
-    const response = await createTask(task);
+    const response = await saveTask(task);
 
     expect(response).toEqual({ result: TaskResponseResult.error });
   });
 
   it('returns error result if request fails', async () => {
-    const task: Task = {
+    const task: TaskDetails = {
       description: 'Call Dumbledore',
       completed: false,
     };
 
     mockFetch.mockRejectedValueOnce({});
 
-    const response = await createTask(task);
+    const response = await saveTask(task);
 
     expect(response).toEqual({
       result: TaskResponseResult.error,
@@ -72,7 +72,7 @@ describe('create', () => {
 
 describe('fetchAllTasks', () => {
   it('calls tasksAPI and returns success result and list of tasks if request is ok', async () => {
-    const tasks: Task[] = [
+    const tasks: TaskDetails[] = [
       {
         description: 'Call Dumbledore',
         completed: false,

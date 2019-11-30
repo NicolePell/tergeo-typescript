@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Task } from '../types';
+import { TaskDetails } from '../types';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 export type StateProps = {
-  tasks: Task[];
+  tasks: TaskDetails[];
 };
 
 export type DispatchProps = {

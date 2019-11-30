@@ -2,5 +2,29 @@
   "name": "tergeo-api",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.10.0",
+    "fastify-cors": "^3.0.0",
+    "mongodb": "^3.3.5"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.3.11",
+    "@types/supertest": "^2.0.8",
+    "nodemon": "^2.0.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testRegex": "\\.tests\\.ts",
+    "modulePaths": [
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
 }
